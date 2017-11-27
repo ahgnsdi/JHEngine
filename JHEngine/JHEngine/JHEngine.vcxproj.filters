@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="gui">
+      <UniqueIdentifier>{4316a181-24a5-4f26-9704-35e6de2050bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\main">
+      <UniqueIdentifier>{2b13a279-0650-4939-9a9d-ce57f8af6018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\process_list">
+      <UniqueIdentifier>{9e4fefc4-75d3-41cc-b603-42dc07829e3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_jhengine.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_jhengine.cpp">
+      <Filter>gui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_process_list.cpp">
+      <Filter>gui\process_list</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_jhengine.cpp">
+      <Filter>gui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_process_list.cpp">
+      <Filter>gui\process_list</Filter>
+    </ClCompile>
+    <ClCompile Include="jhengine.cpp">
+      <Filter>gui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="process_list.cpp">
+      <Filter>gui\process_list</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="jhengine.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="process_list.ui">
+      <Filter>gui\process_list</Filter>
+    </CustomBuild>
+    <CustomBuild Include="jhengine.ui">
+      <Filter>gui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="jhengine.h">
+      <Filter>gui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="process_list.h">
+      <Filter>gui\process_list</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_jhengine.h">
+      <Filter>gui\main</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_process_list.h">
+      <Filter>gui\process_list</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
