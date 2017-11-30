@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>JHEngineClass</class>
  <widget class="QMainWindow" name="JHEngineClass">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,28 +18,24 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="ProcOpenBtn">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
+      <x>10</x>
+      <y>10</y>
       <width>91</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="text">
      <string>Process Open</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>600</width>
-     <height>21</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
@@ -52,12 +51,12 @@
    <slot>OpenProcessList()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>48</x>
-     <y>51</y>
+     <x>62</x>
+     <y>41</y>
     </hint>
     <hint type="destinationlabel">
-     <x>49</x>
-     <y>75</y>
+     <x>75</x>
+     <y>79</y>
     </hint>
    </hints>
   </connection>

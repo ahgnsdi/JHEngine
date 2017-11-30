@@ -4,11 +4,12 @@
 #include <memory>
 #include <strsafe.h>
 
+#include "jh_process.h"
+
 JHEngineProcessList::JHEngineProcessList(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	PrintProcessList();
 }
 
 JHEngineProcessList::~JHEngineProcessList()
@@ -20,6 +21,11 @@ void
 JHEngineProcessList::CloseProcessListForm()
 {
 	this->close();
+}
+
+void JHEngineProcessList::showEvent(QShowEvent *event)
+{
+	PrintProcessList();
 }
 
 void
@@ -48,4 +54,34 @@ JHEngineProcessList::PrintProcessList()
 		str = QString::fromWCharArray(buf);
 		ui.listWidget->addItem(str);
 	}
+}
+
+void
+JHEngineProcessList::SelectProcess()
+{
+	ulong pid = ui.listWidget->currentItem()->text().section("(", 0, 0).toULong();
+
+	if (!jhengine::process::Attach(pid))
+	{
+		wchar_t str[MAX_PATH] = { 0, };
+		StringCbPrintfW(str, sizeof(str), L"OpenProcess Failed ErrorCode: %d", GetLastError());
+		MessageBoxW(0, str, L"Error", 0);
+	}
+
+	this->close();
+}
+
+void
+JHEngineProcessList::SelectProcess(QListWidgetItem *item)
+{
+	ulong pid = item->text().section("(", 0, 0).toULong();
+
+	if (!jhengine::process::Attach(pid))
+	{
+		wchar_t str[MAX_PATH] = { 0, };
+		StringCbPrintfW(str, sizeof(str), L"OpenProcess Failed ErrorCode: %d", GetLastError());
+		MessageBoxW(0, str, L"Error", 0);
+	}
+
+	this->close();
 }

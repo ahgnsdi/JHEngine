@@ -35,9 +35,11 @@ public:
         SelectProcessBtn = new QPushButton(ProcessList);
         SelectProcessBtn->setObjectName(QStringLiteral("SelectProcessBtn"));
         SelectProcessBtn->setGeometry(QRect(10, 380, 211, 23));
+        SelectProcessBtn->setFocusPolicy(Qt::NoFocus);
         SelectCloseBtn = new QPushButton(ProcessList);
         SelectCloseBtn->setObjectName(QStringLiteral("SelectCloseBtn"));
         SelectCloseBtn->setGeometry(QRect(10, 420, 211, 23));
+        SelectCloseBtn->setFocusPolicy(Qt::NoFocus);
         listWidget = new QListWidget(ProcessList);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setGeometry(QRect(9, 9, 211, 361));
@@ -45,6 +47,7 @@ public:
         retranslateUi(ProcessList);
         QObject::connect(SelectProcessBtn, SIGNAL(clicked()), ProcessList, SLOT(SelectProcess()));
         QObject::connect(SelectCloseBtn, SIGNAL(clicked()), ProcessList, SLOT(CloseProcessListForm()));
+        QObject::connect(listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), ProcessList, SLOT(SelectProcess(QListWidgetItem*)));
 
         QMetaObject::connectSlotsByName(ProcessList);
     } // setupUi

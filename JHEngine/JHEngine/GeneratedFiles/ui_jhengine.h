@@ -15,7 +15,6 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
@@ -27,24 +26,22 @@ class Ui_JHEngineClass
 public:
     QWidget *centralWidget;
     QPushButton *ProcOpenBtn;
-    QMenuBar *menuBar;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *JHEngineClass)
     {
         if (JHEngineClass->objectName().isEmpty())
             JHEngineClass->setObjectName(QStringLiteral("JHEngineClass"));
+        JHEngineClass->setEnabled(true);
         JHEngineClass->resize(600, 574);
         centralWidget = new QWidget(JHEngineClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         ProcOpenBtn = new QPushButton(centralWidget);
         ProcOpenBtn->setObjectName(QStringLiteral("ProcOpenBtn"));
-        ProcOpenBtn->setGeometry(QRect(0, 0, 89, 23));
+        ProcOpenBtn->setEnabled(true);
+        ProcOpenBtn->setGeometry(QRect(10, 10, 91, 51));
+        ProcOpenBtn->setFocusPolicy(Qt::NoFocus);
         JHEngineClass->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(JHEngineClass);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 21));
-        JHEngineClass->setMenuBar(menuBar);
         statusBar = new QStatusBar(JHEngineClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         JHEngineClass->setStatusBar(statusBar);

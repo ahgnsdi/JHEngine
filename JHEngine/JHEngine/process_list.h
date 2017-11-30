@@ -4,6 +4,8 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_process_list.h"
 
+#include <Windows.h>
+
 class JHEngineProcessList : public QMainWindow
 {
 	Q_OBJECT
@@ -14,6 +16,11 @@ public:
 
 public slots:
 	void CloseProcessListForm();
+	
+	void SelectProcess();
+	void SelectProcess(QListWidgetItem *item);
+
+	void showEvent(QShowEvent *event);
 
 private:
 	void PrintProcessList();

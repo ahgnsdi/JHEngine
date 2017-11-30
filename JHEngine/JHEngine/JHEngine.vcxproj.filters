@@ -19,6 +19,12 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;cxx;c;def</Extensions>
     </Filter>
+    <Filter Include="JHEngine">
+      <UniqueIdentifier>{53484aa1-ddb7-4b13-b3c6-e7ce77d08875}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JHEngine\process">
+      <UniqueIdentifier>{031dff93-42f5-4b5d-91b8-210ce0e90a7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_process_list.h">
       <Filter>gui\process_list</Filter>
+    </ClInclude>
+    <ClInclude Include="jh_process.h">
+      <Filter>JHEngine\process</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
