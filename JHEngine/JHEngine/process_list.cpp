@@ -5,11 +5,13 @@
 #include <strsafe.h>
 
 #include "jh_process.h"
+#include "jh_qtgui.h"
 
 JHEngineProcessList::JHEngineProcessList(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	jhengine::gui::SetProcessListFormUi(&ui);
 }
 
 JHEngineProcessList::~JHEngineProcessList()
@@ -59,13 +61,19 @@ JHEngineProcessList::PrintProcessList()
 void
 JHEngineProcessList::SelectProcess()
 {
-	ulong pid = ui.listWidget->currentItem()->text().section("(", 0, 0).toULong();
+	QString proc_str = ui.listWidget->currentItem()->text();
+	ulong pid = proc_str.section("(", 0, 0).toULong();
 
 	if (!jhengine::process::Attach(pid))
 	{
 		wchar_t str[MAX_PATH] = { 0, };
 		StringCbPrintfW(str, sizeof(str), L"OpenProcess Failed ErrorCode: %d", GetLastError());
 		MessageBoxW(0, str, L"Error", 0);
+		jhengine::gui::GetMainFormUi()->label->setText("Error");
+	}
+	else
+	{
+		jhengine::gui::GetMainFormUi()->label->setText(proc_str);
 	}
 
 	this->close();
@@ -81,6 +89,11 @@ JHEngineProcessList::SelectProcess(QListWidgetItem *item)
 		wchar_t str[MAX_PATH] = { 0, };
 		StringCbPrintfW(str, sizeof(str), L"OpenProcess Failed ErrorCode: %d", GetLastError());
 		MessageBoxW(0, str, L"Error", 0);
+		jhengine::gui::GetMainFormUi()->label->setText("Error");
+	}
+	else
+	{
+		jhengine::gui::GetMainFormUi()->label->setText(item->text());
 	}
 
 	this->close();

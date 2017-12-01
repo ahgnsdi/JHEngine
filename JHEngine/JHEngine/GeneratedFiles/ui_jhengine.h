@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
@@ -26,6 +27,7 @@ class Ui_JHEngineClass
 public:
     QWidget *centralWidget;
     QPushButton *ProcOpenBtn;
+    QLabel *label;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *JHEngineClass)
@@ -39,8 +41,11 @@ public:
         ProcOpenBtn = new QPushButton(centralWidget);
         ProcOpenBtn->setObjectName(QStringLiteral("ProcOpenBtn"));
         ProcOpenBtn->setEnabled(true);
-        ProcOpenBtn->setGeometry(QRect(10, 10, 91, 51));
+        ProcOpenBtn->setGeometry(QRect(10, 20, 91, 51));
         ProcOpenBtn->setFocusPolicy(Qt::NoFocus);
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(170, 0, 201, 16));
         JHEngineClass->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(JHEngineClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -56,6 +61,7 @@ public:
     {
         JHEngineClass->setWindowTitle(QApplication::translate("JHEngineClass", "JHEngine", Q_NULLPTR));
         ProcOpenBtn->setText(QApplication::translate("JHEngineClass", "Process Open", Q_NULLPTR));
+        label->setText(QApplication::translate("JHEngineClass", "No Process Selected", Q_NULLPTR));
     } // retranslateUi
 
 };

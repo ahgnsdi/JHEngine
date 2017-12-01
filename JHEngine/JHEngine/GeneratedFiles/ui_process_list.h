@@ -54,7 +54,7 @@ public:
 
     void retranslateUi(QWidget *ProcessList)
     {
-        ProcessList->setWindowTitle(QApplication::translate("ProcessList", "Form", Q_NULLPTR));
+        ProcessList->setWindowTitle(QApplication::translate("ProcessList", "ProcessList", Q_NULLPTR));
         SelectProcessBtn->setText(QApplication::translate("ProcessList", "Select", Q_NULLPTR));
         SelectCloseBtn->setText(QApplication::translate("ProcessList", "Close", Q_NULLPTR));
     } // retranslateUi

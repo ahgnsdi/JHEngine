@@ -25,6 +25,9 @@
     <Filter Include="JHEngine\process">
       <UniqueIdentifier>{031dff93-42f5-4b5d-91b8-210ce0e90a7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JHEngine\gui">
+      <UniqueIdentifier>{3c0fb293-1f22-4cd6-9a8e-ebc692ff1185}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="process_list.cpp">
       <Filter>gui\process_list</Filter>
+    </ClCompile>
+    <ClCompile Include="jh_qtgui.cpp">
+      <Filter>JHEngine\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +84,9 @@
     </ClInclude>
     <ClInclude Include="jh_process.h">
       <Filter>JHEngine\process</Filter>
+    </ClInclude>
+    <ClInclude Include="jh_qtgui.h">
+      <Filter>JHEngine\gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
