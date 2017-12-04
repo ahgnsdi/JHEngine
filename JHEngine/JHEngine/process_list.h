@@ -6,6 +6,9 @@
 
 #include <Windows.h>
 
+#include "qlayout.h"
+
+
 class JHEngineProcessList : public QMainWindow
 {
 	Q_OBJECT

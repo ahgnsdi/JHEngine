@@ -25,7 +25,8 @@ JHEngineProcessList::CloseProcessListForm()
 	this->close();
 }
 
-void JHEngineProcessList::showEvent(QShowEvent *event)
+void
+JHEngineProcessList::showEvent(QShowEvent *event)
 {
 	PrintProcessList();
 }

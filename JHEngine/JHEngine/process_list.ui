@@ -1,95 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>ProcessList</class>
- <widget class="QWidget" name="ProcessList">
+ <widget class="QMainWindow" name="ProcessList">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>230</width>
-    <height>454</height>
+    <width>248</width>
+    <height>504</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ProcessList</string>
   </property>
-  <widget class="QPushButton" name="SelectProcessBtn">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>380</y>
-     <width>211</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="text">
-    <string>Select</string>
-   </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QListWidget" name="listWidget"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Select</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>Close</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
-  <widget class="QPushButton" name="SelectCloseBtn">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>420</y>
-     <width>211</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="text">
-    <string>Close</string>
-   </property>
-  </widget>
-  <widget class="QListWidget" name="listWidget">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>9</y>
-     <width>211</width>
-     <height>361</height>
-    </rect>
-   </property>
-  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>SelectProcessBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>ProcessList</receiver>
-   <slot>SelectProcess()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>96</x>
-     <y>374</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>51</x>
-     <y>396</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>SelectCloseBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>ProcessList</receiver>
-   <slot>CloseProcessListForm()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>134</x>
-     <y>428</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>140</x>
-     <y>443</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>listWidget</sender>
    <signal>itemDoubleClicked(QListWidgetItem*)</signal>
@@ -97,19 +45,51 @@
    <slot>SelectProcess(QListWidgetItem*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>38</x>
-     <y>279</y>
+     <x>42</x>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
-     <x>4</x>
-     <y>263</y>
+     <x>3</x>
+     <y>404</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ProcessList</receiver>
+   <slot>SelectProcess()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>125</x>
+     <y>434</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>472</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>ProcessList</receiver>
+   <slot>CloseProcessListForm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>163</x>
+     <y>469</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>153</x>
+     <y>482</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
+  <slot>SelectProcess(QListWidgetItem*)</slot>
   <slot>SelectProcess()</slot>
   <slot>CloseProcessListForm()</slot>
-  <slot>SelectProcess(QListWidgetItem*)</slot>
  </slots>
 </ui>

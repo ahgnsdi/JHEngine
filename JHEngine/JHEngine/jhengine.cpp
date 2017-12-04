@@ -20,3 +20,9 @@ JHEngine::OpenProcessList()
 {
 	proc_list_.show();
 }
+
+void 
+JHEngine::OpenMemoryViewer()
+{
+	memory_viewer_.show();
+}

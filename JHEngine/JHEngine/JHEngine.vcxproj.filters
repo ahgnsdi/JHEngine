@@ -28,6 +28,9 @@
     <Filter Include="JHEngine\gui">
       <UniqueIdentifier>{3c0fb293-1f22-4cd6-9a8e-ebc692ff1185}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gui\memory_viewer">
+      <UniqueIdentifier>{9e4b40c4-30bd-4841-9f62-a23e0de9f7d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,13 +60,19 @@
     <ClCompile Include="jh_qtgui.cpp">
       <Filter>JHEngine\gui</Filter>
     </ClCompile>
+    <ClCompile Include="memory_viewer.cpp">
+      <Filter>gui\memory_viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_memory_viewer.cpp">
+      <Filter>gui\memory_viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_memory_viewer.cpp">
+      <Filter>gui\memory_viewer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="jhengine.qrc">
       <Filter>Resource Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="process_list.ui">
-      <Filter>gui\process_list</Filter>
     </CustomBuild>
     <CustomBuild Include="jhengine.ui">
       <Filter>gui\main</Filter>
@@ -73,6 +82,15 @@
     </CustomBuild>
     <CustomBuild Include="process_list.h">
       <Filter>gui\process_list</Filter>
+    </CustomBuild>
+    <CustomBuild Include="process_list.ui">
+      <Filter>gui\process_list</Filter>
+    </CustomBuild>
+    <CustomBuild Include="memory_viewer.ui">
+      <Filter>gui\memory_viewer</Filter>
+    </CustomBuild>
+    <CustomBuild Include="memory_viewer.h">
+      <Filter>gui\memory_viewer</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="jh_qtgui.h">
       <Filter>JHEngine\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_memory_viewer.h">
+      <Filter>gui\memory_viewer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

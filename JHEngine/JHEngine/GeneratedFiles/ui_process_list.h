@@ -15,7 +15,10 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QListWidget>
+#include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -23,40 +26,55 @@ QT_BEGIN_NAMESPACE
 class Ui_ProcessList
 {
 public:
-    QPushButton *SelectProcessBtn;
-    QPushButton *SelectCloseBtn;
+    QWidget *centralwidget;
+    QVBoxLayout *verticalLayout;
     QListWidget *listWidget;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
+    QStatusBar *statusbar;
 
-    void setupUi(QWidget *ProcessList)
+    void setupUi(QMainWindow *ProcessList)
     {
         if (ProcessList->objectName().isEmpty())
             ProcessList->setObjectName(QStringLiteral("ProcessList"));
-        ProcessList->resize(230, 454);
-        SelectProcessBtn = new QPushButton(ProcessList);
-        SelectProcessBtn->setObjectName(QStringLiteral("SelectProcessBtn"));
-        SelectProcessBtn->setGeometry(QRect(10, 380, 211, 23));
-        SelectProcessBtn->setFocusPolicy(Qt::NoFocus);
-        SelectCloseBtn = new QPushButton(ProcessList);
-        SelectCloseBtn->setObjectName(QStringLiteral("SelectCloseBtn"));
-        SelectCloseBtn->setGeometry(QRect(10, 420, 211, 23));
-        SelectCloseBtn->setFocusPolicy(Qt::NoFocus);
-        listWidget = new QListWidget(ProcessList);
+        ProcessList->resize(248, 504);
+        centralwidget = new QWidget(ProcessList);
+        centralwidget->setObjectName(QStringLiteral("centralwidget"));
+        verticalLayout = new QVBoxLayout(centralwidget);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        listWidget = new QListWidget(centralwidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
-        listWidget->setGeometry(QRect(9, 9, 211, 361));
+
+        verticalLayout->addWidget(listWidget);
+
+        pushButton = new QPushButton(centralwidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+
+        verticalLayout->addWidget(pushButton);
+
+        pushButton_2 = new QPushButton(centralwidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+
+        verticalLayout->addWidget(pushButton_2);
+
+        ProcessList->setCentralWidget(centralwidget);
+        statusbar = new QStatusBar(ProcessList);
+        statusbar->setObjectName(QStringLiteral("statusbar"));
+        ProcessList->setStatusBar(statusbar);
 
         retranslateUi(ProcessList);
-        QObject::connect(SelectProcessBtn, SIGNAL(clicked()), ProcessList, SLOT(SelectProcess()));
-        QObject::connect(SelectCloseBtn, SIGNAL(clicked()), ProcessList, SLOT(CloseProcessListForm()));
         QObject::connect(listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), ProcessList, SLOT(SelectProcess(QListWidgetItem*)));
+        QObject::connect(pushButton, SIGNAL(clicked()), ProcessList, SLOT(SelectProcess()));
+        QObject::connect(pushButton_2, SIGNAL(clicked()), ProcessList, SLOT(CloseProcessListForm()));
 
         QMetaObject::connectSlotsByName(ProcessList);
     } // setupUi
 
-    void retranslateUi(QWidget *ProcessList)
+    void retranslateUi(QMainWindow *ProcessList)
     {
         ProcessList->setWindowTitle(QApplication::translate("ProcessList", "ProcessList", Q_NULLPTR));
-        SelectProcessBtn->setText(QApplication::translate("ProcessList", "Select", Q_NULLPTR));
-        SelectCloseBtn->setText(QApplication::translate("ProcessList", "Close", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("ProcessList", "Select", Q_NULLPTR));
+        pushButton_2->setText(QApplication::translate("ProcessList", "Close", Q_NULLPTR));
     } // retranslateUi
 
 };
