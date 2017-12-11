@@ -135,7 +135,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;$(ProjectDir)\capstone;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -176,7 +176,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="jhengine.cpp" />
+    <ClCompile Include="jh_disasm.cpp" />
+    <ClCompile Include="jh_process.cpp" />
     <ClCompile Include="jh_qtgui.cpp" />
+    <ClCompile Include="jh_data_storage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memory_viewer.cpp" />
     <ClCompile Include="process_list.cpp" />
@@ -225,8 +228,10 @@
     <ClInclude Include="GeneratedFiles\ui_jhengine.h" />
     <ClInclude Include="GeneratedFiles\ui_memory_viewer.h" />
     <ClInclude Include="GeneratedFiles\ui_process_list.h" />
+    <ClInclude Include="jh_disasm.h" />
     <ClInclude Include="jh_process.h" />
     <ClInclude Include="jh_qtgui.h" />
+    <ClInclude Include="jh_data_storage.h" />
     <CustomBuild Include="memory_viewer.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing memory_viewer.h...</Message>

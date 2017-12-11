@@ -31,6 +31,12 @@
     <Filter Include="gui\memory_viewer">
       <UniqueIdentifier>{9e4b40c4-30bd-4841-9f62-a23e0de9f7d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JHEngine\disassembler">
+      <UniqueIdentifier>{31ed78d3-34a4-4778-90fd-ab80e3db0c21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JHEngine\storage">
+      <UniqueIdentifier>{3ff51a16-0b22-4d5f-a404-32ef51462775}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -68,6 +74,15 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_memory_viewer.cpp">
       <Filter>gui\memory_viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="jh_process.cpp">
+      <Filter>JHEngine\process</Filter>
+    </ClCompile>
+    <ClCompile Include="jh_data_storage.cpp">
+      <Filter>JHEngine\storage</Filter>
+    </ClCompile>
+    <ClCompile Include="jh_disasm.cpp">
+      <Filter>JHEngine\disassembler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +123,12 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_memory_viewer.h">
       <Filter>gui\memory_viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="jh_data_storage.h">
+      <Filter>JHEngine\storage</Filter>
+    </ClInclude>
+    <ClInclude Include="jh_disasm.h">
+      <Filter>JHEngine\disassembler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 
 #include "jh_process.h"
 #include "jh_qtgui.h"
+#include "jh_data_storage.h"
 
 JHEngineProcessList::JHEngineProcessList(QWidget *parent)
 	: QMainWindow(parent)
@@ -77,6 +78,16 @@ JHEngineProcessList::SelectProcess()
 		jhengine::gui::GetMainFormUi()->label->setText(proc_str);
 	}
 
+	void *img_base = jhengine::process::GetCurrentProcessImageBase();
+	if (img_base)
+	{
+		jhengine::storage::SetMemoryViewerCurrentAddress(img_base);
+	}
+	else
+	{
+		jhengine::storage::SetMemoryViewerCurrentAddress(nullptr);
+	}
+
 	this->close();
 }
 
@@ -95,6 +106,16 @@ JHEngineProcessList::SelectProcess(QListWidgetItem *item)
 	else
 	{
 		jhengine::gui::GetMainFormUi()->label->setText(item->text());
+	}
+
+	void *img_base = jhengine::process::GetCurrentProcessImageBase();
+	if (img_base)
+	{
+		jhengine::storage::SetMemoryViewerCurrentAddress(img_base);
+	}
+	else
+	{
+		jhengine::storage::SetMemoryViewerCurrentAddress(nullptr);
 	}
 
 	this->close();

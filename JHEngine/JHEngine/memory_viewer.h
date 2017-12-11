@@ -17,9 +17,16 @@ public:
 
 public slots:
 	void showEvent(QShowEvent *event);
+	void closeEvent(QCloseEvent *event);
+
+private:
+	void PrintDisassemble(void *ptr);
+
+	
 
 private:
 	Ui::MemoryViewer ui;
+	bool first_show_chk_ = false;
 };
 
 #endif // JHENGINE_H
