@@ -15,7 +15,8 @@ namespace jhengine
 		void *GetCurrentProcessImageBase();
 
 		bool IsImagePtr(void *ptr);
-		bool GetModuleRange(void *ptr, void *&start, void *&end);
+		bool GetModuleRange(HMODULE ptr, void *&start, void *&end);
+		HMODULE GetModuleBaseFromPtr(void *ptr);
 		
 	}
 }

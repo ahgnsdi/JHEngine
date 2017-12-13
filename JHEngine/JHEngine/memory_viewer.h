@@ -19,14 +19,16 @@ public slots:
 	void showEvent(QShowEvent *event);
 	void closeEvent(QCloseEvent *event);
 
-private:
-	void PrintDisassemble(void *ptr);
+	void DisassemblyGotoAddress();
+	void MemoryGotoAddress();
 
+private:
+	void UpdateDisassembleView(void *ptr, bool scroll_top_chk);
+	bool IsReadableMemory(void *ptr);
 	
 
 private:
 	Ui::MemoryViewer ui;
-	bool first_show_chk_ = false;
 };
 
 #endif // JHENGINE_H

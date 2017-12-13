@@ -72,14 +72,30 @@ bool jhengine::process::IsImagePtr(void *ptr)
 	return false;
 }
 
-bool jhengine::process::GetModuleRange(void *ptr, void *&start, void *&end)
+bool jhengine::process::GetModuleRange(HMODULE mod, void *&start, void *&end)
 {
 	MODULEINFO info;
-	if (GetModuleInformation(g_proc_handle, (HMODULE)ptr, &info, sizeof(info)))
+	if (GetModuleInformation(g_proc_handle, mod, &info, sizeof(info)))
 	{
 		start = info.lpBaseOfDll;
 		end = AddPtr(start, info.SizeOfImage);
 		return true;
 	}
 	return false;
+}
+
+HMODULE jhengine::process::GetModuleBaseFromPtr(void *ptr)
+{
+	if (!g_proc_handle)
+	{
+		return nullptr;
+	}
+
+	MEMORY_BASIC_INFORMATION mbi;
+	if (VirtualQueryEx(g_proc_handle, ptr, &mbi, sizeof(mbi)) != sizeof(mbi))
+	{
+		return nullptr;
+	}
+
+	return (HMODULE)mbi.AllocationBase;
 }
