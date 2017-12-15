@@ -13,6 +13,18 @@ JHEngineMemoryViewer::JHEngineMemoryViewer(QWidget *parent)
 {
 	ui.setupUi(this);
 	//jhengine::gui::SetProcessListFormUi(&ui);
+
+	ui.treeWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
+	QMenu *menu = new QMenu(ui.treeWidget);
+	QAction *dis_goto_action = menu->addAction("Go to Address");
+	QAction *action = menu->addAction("Go to Address2");
+
+	connect(dis_goto_action, SIGNAL(triggered()), SLOT(DisassemblyGotoAddress()));
+	connect(action, SIGNAL(triggered()), SLOT(DisassemblyGotoAddress()));
+
+	ui.treeWidget->addAction(dis_goto_action);
+	ui.treeWidget->addAction(action);
+
 }
 
 JHEngineMemoryViewer::~JHEngineMemoryViewer()
@@ -42,8 +54,8 @@ bool JHEngineMemoryViewer::IsReadableMemory(void *ptr)
 void JHEngineMemoryViewer::DisassemblyGotoAddress()
 {
 	ULONG address = 0;
-	std::istringstream(ui.textEdit->toPlainText().toStdString().c_str()) >> std::hex >> address;
-
+	//std::istringstream(ui.textEdit->toPlainText().toStdString().c_str()) >> std::hex >> address;
+	MessageBoxW(0, L"", L"", 64);
 }
 
 void JHEngineMemoryViewer::MemoryGotoAddress()
