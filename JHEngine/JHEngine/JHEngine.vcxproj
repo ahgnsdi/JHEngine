@@ -225,6 +225,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GeneratedFiles\disassembly_viewer.h" />
     <ClInclude Include="GeneratedFiles\ui_jhengine.h" />
     <ClInclude Include="GeneratedFiles\ui_memory_viewer.h" />
     <ClInclude Include="GeneratedFiles\ui_process_list.h" />
@@ -334,7 +335,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_Win32="Qt x86" Qt5Version_x0020_x64="Qt 5.9" MocOptions="" />
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_Win32="Qt x86" Qt5Version_x0020_x64="Qt" MocOptions="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

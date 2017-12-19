@@ -18,8 +18,8 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QWidget>
+#include "disassembly_viewer.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -29,7 +29,7 @@ public:
     QWidget *centralwidget;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
-    QTreeWidget *treeWidget;
+    DisassemblyViewer *treeWidget;
     QStatusBar *statusbar;
     QMenuBar *menuBar;
 
@@ -47,7 +47,7 @@ public:
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        treeWidget = new QTreeWidget(layoutWidget);
+        treeWidget = new DisassemblyViewer(layoutWidget);
         treeWidget->setObjectName(QStringLiteral("treeWidget"));
         treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
 

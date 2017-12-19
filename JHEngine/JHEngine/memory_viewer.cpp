@@ -8,6 +8,8 @@
 
 #include <sstream>
 
+#include <qpainter.h>
+
 JHEngineMemoryViewer::JHEngineMemoryViewer(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -61,12 +63,10 @@ void JHEngineMemoryViewer::DisassemblyGotoAddress()
 void JHEngineMemoryViewer::MemoryGotoAddress()
 {
 	MessageBoxA(0, "3", "4", 64);
-}
+}	
 
 void JHEngineMemoryViewer::UpdateDisassembleView(void *ptr, bool scroll_top_chk)
 {
-	ui.treeWidget->clear();
-
 	if (scroll_top_chk)
 	{
 		ui.treeWidget->scrollToTop();
@@ -108,7 +108,7 @@ JHEngineMemoryViewer::showEvent(QShowEvent *event)
 {
 	QMainWindow::showEvent(event);
 	
-	UpdateDisassembleView(jhengine::storage::GetMemoryViewerCurrentAddress(), false);
+	//UpdateDisassembleView(jhengine::storage::GetMemoryViewerCurrentAddress(), false);
 }
 
 void
