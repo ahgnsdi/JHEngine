@@ -9,6 +9,54 @@
 #include <sstream>
 
 #include <qpainter.h>
+#include <qstyleditemdelegate.h>
+#include <qabstracttextdocumentlayout.h>
+
+class HtmlDelegate : public QStyledItemDelegate
+{
+protected:
+	void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const;
+	QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const;
+};
+
+void HtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+	QStyleOptionViewItemV4 optionV4 = option;
+	initStyleOption(&optionV4, index);
+
+	QStyle *style = optionV4.widget ? optionV4.widget->style() : QApplication::style();
+
+	QTextDocument doc;
+	doc.setHtml(optionV4.text);
+
+	/// Painting item without text
+	optionV4.text = QString();
+	style->drawControl(QStyle::CE_ItemViewItem, &optionV4, painter);
+
+	QAbstractTextDocumentLayout::PaintContext ctx;
+
+	// Highlighting text if item is selected
+	//if (optionV4.state & QStyle::State_Selected)
+		//ctx.palette.setColor(QPalette::Text, Qt::red);//optionV4.palette.color(QPalette::Active, QPalette::));
+
+	QRect textRect = style->subElementRect(QStyle::SE_ItemViewItemText, &optionV4);
+	painter->save();
+	painter->translate(textRect.topLeft());
+	painter->setClipRect(textRect.translated(-textRect.topLeft()));
+	doc.documentLayout()->draw(painter, ctx);
+	painter->restore();
+}
+
+QSize HtmlDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+	QStyleOptionViewItemV4 optionV4 = option;
+	initStyleOption(&optionV4, index);
+
+	QTextDocument doc;
+	doc.setHtml(optionV4.text);
+	doc.setTextWidth(optionV4.rect.width());
+	return QSize(doc.idealWidth(), doc.size().height());
+}
 
 JHEngineMemoryViewer::JHEngineMemoryViewer(QWidget *parent)
 	: QMainWindow(parent)
@@ -24,14 +72,23 @@ JHEngineMemoryViewer::JHEngineMemoryViewer(QWidget *parent)
 	connect(dis_goto_action, SIGNAL(triggered()), SLOT(DisassemblyGotoAddress()));
 	connect(action, SIGNAL(triggered()), SLOT(DisassemblyGotoAddress()));
 
+	HtmlDelegate *del = new HtmlDelegate();
+
 	ui.treeWidget->addAction(dis_goto_action);
 	ui.treeWidget->addAction(action);
+	ui.treeWidget->setItemDelegate(del);
 
 }
 
 JHEngineMemoryViewer::~JHEngineMemoryViewer()
 {
 
+}
+
+std::string 
+JHEngineMemoryViewer::GetDefaultTextColor(std::string content)
+{
+	return "<span style = \"color:white\">" + content + "</span>";
 }
 
 bool JHEngineMemoryViewer::IsReadableMemory(void *ptr)
@@ -63,7 +120,7 @@ void JHEngineMemoryViewer::DisassemblyGotoAddress()
 void JHEngineMemoryViewer::MemoryGotoAddress()
 {
 	MessageBoxA(0, "3", "4", 64);
-}	
+}
 
 void JHEngineMemoryViewer::UpdateDisassembleView(void *ptr, bool scroll_top_chk)
 {
@@ -76,9 +133,9 @@ void JHEngineMemoryViewer::UpdateDisassembleView(void *ptr, bool scroll_top_chk)
 	{
 		ui.treeWidget->scrollToTop();
 		QTreeWidgetItem *item = new QTreeWidgetItem;
-		item->setText(0, "-");
-		item->setText(1, "-");
-		item->setText(2, "Non Readable Memory");
+		item->setText(0, GetDefaultTextColor("-").c_str());
+		item->setText(1, GetDefaultTextColor("-").c_str());
+		item->setText(2, GetDefaultTextColor("Non Readable Memory").c_str());
 		ui.treeWidget->addTopLevelItem(item);
 		
 		return;
@@ -93,9 +150,9 @@ void JHEngineMemoryViewer::UpdateDisassembleView(void *ptr, bool scroll_top_chk)
 		std::string addr_str, bytes_str, opcode_str;
 		jhengine::disassembler::Disasm(jhengine::process::GetCurrentProcessHandle(), (uint64_t)ptr, addr_str, bytes_str, opcode_str, res_size);
 		QTreeWidgetItem *item = new QTreeWidgetItem;
-		item->setText(0, addr_str.c_str());
-		item->setText(1, bytes_str.c_str());
-		item->setText(2, opcode_str.c_str());
+		item->setText(0, GetDefaultTextColor(addr_str).c_str());
+		item->setText(1, GetDefaultTextColor(bytes_str).c_str());
+		item->setText(2, GetDefaultTextColor(opcode_str).c_str());
 
 		ui.treeWidget->addTopLevelItem(item);
 
@@ -107,11 +164,14 @@ void
 JHEngineMemoryViewer::showEvent(QShowEvent *event)
 {
 	QMainWindow::showEvent(event);
-	
-	//UpdateDisassembleView(jhengine::storage::GetMemoryViewerCurrentAddress(), false);
+
+	QTreeWidgetItem *item = new QTreeWidgetItem;
+
+	UpdateDisassembleView(jhengine::storage::GetMemoryViewerCurrentAddress(), false);
 }
 
 void
 JHEngineMemoryViewer::closeEvent(QCloseEvent *event)
 {
+	ui.treeWidget->clear();
 }

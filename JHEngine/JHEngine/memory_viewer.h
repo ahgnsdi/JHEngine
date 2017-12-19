@@ -5,7 +5,7 @@
 #include "ui_memory_viewer.h"
 
 #include <Windows.h>
-
+#include <string>
 
 class JHEngineMemoryViewer : public QMainWindow
 {
@@ -25,6 +25,8 @@ public slots:
 private:
 	void UpdateDisassembleView(void *ptr, bool scroll_top_chk);
 	bool IsReadableMemory(void *ptr);
+
+	std::string GetDefaultTextColor(std::string content);
 	
 
 private:

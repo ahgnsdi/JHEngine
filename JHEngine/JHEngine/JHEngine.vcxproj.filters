@@ -145,8 +145,5 @@
     <ClInclude Include="jh_disasm.h">
       <Filter>JHEngine\disassembler</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\disassembly_viewer.h">
-      <Filter>gui\memory_viewer</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,8 +18,9 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QWidget>
-#include "disassembly_viewer.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -29,7 +30,8 @@ public:
     QWidget *centralwidget;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
-    DisassemblyViewer *treeWidget;
+    QTreeWidget *treeWidget;
+    QTextEdit *textEdit;
     QStatusBar *statusbar;
     QMenuBar *menuBar;
 
@@ -47,12 +49,15 @@ public:
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        treeWidget = new DisassemblyViewer(layoutWidget);
+        treeWidget = new QTreeWidget(layoutWidget);
         treeWidget->setObjectName(QStringLiteral("treeWidget"));
         treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
 
         horizontalLayout->addWidget(treeWidget);
 
+        textEdit = new QTextEdit(centralwidget);
+        textEdit->setObjectName(QStringLiteral("textEdit"));
+        textEdit->setGeometry(QRect(60, 390, 241, 21));
         MemoryViewer->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MemoryViewer);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -74,6 +79,11 @@ public:
         ___qtreewidgetitem->setText(2, QApplication::translate("MemoryViewer", "Opcode", Q_NULLPTR));
         ___qtreewidgetitem->setText(1, QApplication::translate("MemoryViewer", "Bytes", Q_NULLPTR));
         ___qtreewidgetitem->setText(0, QApplication::translate("MemoryViewer", "Address", Q_NULLPTR));
+        textEdit->setHtml(QApplication::translate("MemoryViewer", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Gulim'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">123</p></body></html>", Q_NULLPTR));
     } // retranslateUi
 
 };
