@@ -11,6 +11,7 @@
 #include <qpainter.h>
 #include <qstyleditemdelegate.h>
 #include <qabstracttextdocumentlayout.h>
+#include <thread>
 
 class HtmlDelegate : public QStyledItemDelegate
 {
@@ -77,7 +78,6 @@ JHEngineMemoryViewer::JHEngineMemoryViewer(QWidget *parent)
 	ui.treeWidget->addAction(dis_goto_action);
 	ui.treeWidget->addAction(action);
 	ui.treeWidget->setItemDelegate(del);
-
 }
 
 JHEngineMemoryViewer::~JHEngineMemoryViewer()
@@ -85,10 +85,59 @@ JHEngineMemoryViewer::~JHEngineMemoryViewer()
 
 }
 
+void
+JHEngineMemoryViewer::DisassemblyViewUp(bool page)
+{
+	if(page)
+		MessageBoxA(0, "Up", "", 64);
+	else
+		MessageBoxA(0, "Up2", "", 64);
+}
+
+void
+JHEngineMemoryViewer::DisassemblyViewDown(bool page)
+{
+	DWORD res_size = 0;
+	void *current_ptr = jhengine::storage::GetMemoryViewerCurrentAddress();
+
+	if(page)
+		MessageBoxA(0, "Down", "", 64);
+	else
+	{
+		
+		std::string addr_str, bytes_str, opcode_str;
+		jhengine::disassembler::Disasm(jhengine::process::GetCurrentProcessHandle(), (uint64_t)current_ptr, addr_str, bytes_str, opcode_str, res_size);
+		QTreeWidgetItem *item = new QTreeWidgetItem;
+		item->setText(0, GetDefaultTextColor(addr_str).c_str());
+		item->setText(1, GetDefaultTextColor(bytes_str).c_str());
+		item->setText(2, GetDefaultTextColor(opcode_str).c_str());
+
+		ui.treeWidget->addTopLevelItem(item);
+	}
+
+	jhengine::storage::SetMemoryViewerCurrentAddress(AddPtr(current_ptr, res_size));
+}
+
+void 
+JHEngineMemoryViewer::wheelEvent(QWheelEvent *event)
+{
+	int degrees = event->delta() / 8;
+	int steps = degrees / 15;
+
+	if (steps < 0)
+	{
+		UpdateDisassembleView(jhengine::storage::GetMemoryViewerCurrentAddress(), false, 0x100);
+		//for (int i = 0; i < (mouse_scroll_delta_ * steps / 2) * -1; i++)
+		//{
+		//	DisassemblyViewDown(false);
+		//}
+	}
+}
+
 std::string 
 JHEngineMemoryViewer::GetDefaultTextColor(std::string content)
 {
-	return "<span style = \"color:white\">" + content + "</span>";
+	return "<span style = \"color:#c7ccc1\">" + content + "</span>";
 }
 
 bool JHEngineMemoryViewer::IsReadableMemory(void *ptr)
@@ -122,11 +171,17 @@ void JHEngineMemoryViewer::MemoryGotoAddress()
 	MessageBoxA(0, "3", "4", 64);
 }
 
-void JHEngineMemoryViewer::UpdateDisassembleView(void *ptr, bool scroll_top_chk)
+void JHEngineMemoryViewer::UpdateDisassembleView(void *ptr, bool scroll_top_chk, ulong size)
 {
 	if (scroll_top_chk)
 	{
 		ui.treeWidget->scrollToTop();
+	}
+
+	if (clear_view_cnt_ > 10)
+	{
+		clear_view_cnt_ = 0;
+		ui.treeWidget->clear();
 	}
 
 	if (!IsReadableMemory(ptr))
@@ -143,7 +198,7 @@ void JHEngineMemoryViewer::UpdateDisassembleView(void *ptr, bool scroll_top_chk)
 	
 
 	DWORD res_size = 0;
-	void *end = AddPtr(ptr, 0x1000);
+	void *end = AddPtr(ptr, size);
 
 	while (ptr <= end)
 	{
@@ -158,6 +213,8 @@ void JHEngineMemoryViewer::UpdateDisassembleView(void *ptr, bool scroll_top_chk)
 
 		ptr = AddPtr(ptr, res_size);
 	}
+
+	jhengine::storage::SetMemoryViewerCurrentAddress(end);
 }
 
 void
@@ -167,7 +224,7 @@ JHEngineMemoryViewer::showEvent(QShowEvent *event)
 
 	QTreeWidgetItem *item = new QTreeWidgetItem;
 
-	UpdateDisassembleView(jhengine::storage::GetMemoryViewerCurrentAddress(), false);
+	UpdateDisassembleView(jhengine::storage::GetMemoryViewerCurrentAddress(), false, 0x1000);
 }
 
 void

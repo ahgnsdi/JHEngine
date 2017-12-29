@@ -22,15 +22,24 @@ public slots:
 	void DisassemblyGotoAddress();
 	void MemoryGotoAddress();
 
+	void wheelEvent(QWheelEvent *event);
+
 private:
-	void UpdateDisassembleView(void *ptr, bool scroll_top_chk);
+	void UpdateDisassembleView(void *ptr, bool scroll_top_chk, ulong size);
 	bool IsReadableMemory(void *ptr);
 
+	void DisassemblyViewUp(bool page);
+	void DisassemblyViewDown(bool page);
+
 	std::string GetDefaultTextColor(std::string content);
+
+	void ScrollEventThreadProc();
 	
 
 private:
 	Ui::MemoryViewer ui;
+	int mouse_scroll_delta_ = 4;
+	int clear_view_cnt_ = 0;
 };
 
 #endif // JHENGINE_H

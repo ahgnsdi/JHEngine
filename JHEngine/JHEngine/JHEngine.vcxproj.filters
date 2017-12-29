@@ -52,6 +52,9 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="gui\goto_address">
+      <UniqueIdentifier>{17b810fd-7dd8-41eb-bf47-f1e8c9877754}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
