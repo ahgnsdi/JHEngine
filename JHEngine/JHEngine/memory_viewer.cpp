@@ -9,6 +9,7 @@
 #include <sstream>
 
 #include <qpainter.h>
+#include <qscrollbar.h>
 #include <qstyleditemdelegate.h>
 #include <qabstracttextdocumentlayout.h>
 #include <thread>
@@ -127,10 +128,23 @@ JHEngineMemoryViewer::wheelEvent(QWheelEvent *event)
 	if (steps < 0)
 	{
 		UpdateDisassembleView(jhengine::storage::GetMemoryViewerCurrentAddress(), false, 0x100);
-		//for (int i = 0; i < (mouse_scroll_delta_ * steps / 2) * -1; i++)
-		//{
-		//	DisassemblyViewDown(false);
-		//}
+	}
+}
+
+void
+JHEngineMemoryViewer::keyPressEvent(QKeyEvent *event)
+{
+	switch (event->key())
+	{
+	case Qt::Key_Down:
+	case Qt::Key_PageDown:
+		{
+			if (ui.treeWidget->verticalScrollBar()->sliderPosition() == ui.treeWidget->verticalScrollBar()->maximum())
+			{
+				UpdateDisassembleView(jhengine::storage::GetMemoryViewerCurrentAddress(), false, 0x100);
+			}
+		}
+		break;
 	}
 }
 

@@ -4,6 +4,7 @@
 #include <qtreewidget.h>
 #include <qevent.h>
 #include <qpainter.h>
+#include <qheaderview.h>
 
 #include <Windows.h>
 
@@ -20,13 +21,21 @@ public:
 	{
 	}
 
+	int getWeight()
+	{
+		return QFontMetrics(this->font()).width(QChar(' '));
+	}
+
 	void paintEvent(QPaintEvent *event)
 	{
 		QPainter painter(viewport());
 		painter.setPen(QPen(Qt::blue));
-		painter.fillRect(event->rect(), Qt::red);
+		painter.fillRect(event->rect(), Qt::black);
 
-		painter.drawText(10,10,10,10,10, "123");
+		int h = this->header()->height();
+		int w = this->font().weight();
+
+		painter.drawText(QRect(100 + 4, 1, h, w), "123");
 
 		//QTreeWidget::paintEvent(event);
 	}

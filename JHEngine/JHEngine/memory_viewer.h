@@ -23,6 +23,7 @@ public slots:
 	void MemoryGotoAddress();
 
 	void wheelEvent(QWheelEvent *event);
+	void keyPressEvent(QKeyEvent* event);
 
 private:
 	void UpdateDisassembleView(void *ptr, bool scroll_top_chk, ulong size);
