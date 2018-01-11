@@ -154,6 +154,12 @@ JHEngineMemoryViewer::GetDefaultTextColor(std::string content)
 	return "<span style = \"color:#c7ccc1\">" + content + "</span>";
 }
 
+std::string
+JHEngineMemoryViewer::SetHighlightingSyntax(std::string content)
+{
+	return "";
+}
+
 bool JHEngineMemoryViewer::IsReadableMemory(void *ptr)
 {
 	MEMORY_BASIC_INFORMATION mbi;
@@ -200,6 +206,7 @@ void JHEngineMemoryViewer::UpdateDisassembleView(void *ptr, bool scroll_top_chk,
 
 	if (!IsReadableMemory(ptr))
 	{
+		ui.treeWidget->clear();
 		ui.treeWidget->scrollToTop();
 		QTreeWidgetItem *item = new QTreeWidgetItem;
 		item->setText(0, GetDefaultTextColor("-").c_str());
@@ -239,10 +246,90 @@ JHEngineMemoryViewer::showEvent(QShowEvent *event)
 	QTreeWidgetItem *item = new QTreeWidgetItem;
 
 	UpdateDisassembleView(jhengine::storage::GetMemoryViewerCurrentAddress(), false, 0x1000);
+	UpdateMemoryDumpView(jhengine::storage::GetMemoryViewerCurrentAddress(), false, 0x1000);
 }
 
 void
 JHEngineMemoryViewer::closeEvent(QCloseEvent *event)
 {
 	ui.treeWidget->clear();
+}
+
+void JHEngineMemoryViewer::UpdateMemoryDumpView(void *ptr, bool scroll_top_chk, ulong size)
+{
+	if (scroll_top_chk)
+	{
+		ui.treeWidget->scrollToTop();
+	}
+
+	if (clear_view_cnt_ > 10)
+	{
+		clear_view_cnt_ = 0;
+		ui.treeWidget->clear();
+	}
+
+	if (!IsReadableMemory(ptr))
+	{
+		ui.treeWidget->clear();
+		ui.treeWidget->scrollToTop();
+		QTreeWidgetItem *item = new QTreeWidgetItem;
+		item->setText(0, GetDefaultTextColor("-").c_str());
+		item->setText(1, GetDefaultTextColor("-").c_str());
+		item->setText(2, GetDefaultTextColor("Non Readable Memory").c_str());
+		ui.treeWidget->addTopLevelItem(item);
+
+		return;
+	}
+
+
+	DWORD res_size = 0;
+	void *end = AddPtr(ptr, size);
+
+	while (ptr <= end)
+	{
+		char addr_str[10], bytes_str[100], ascii_str[100];
+		BYTE buffer[16] = { 0 ,};
+		SIZE_T req_size = 0;
+		ReadProcessMemory(jhengine::process::GetCurrentProcessHandle(), ptr, buffer, 16, &req_size);
+
+		StringCbPrintfA(addr_str, sizeof(addr_str), "%08X", ptr);
+		
+		for (int i = 0; i < 16; i++)
+		{
+			if(buffer[i] > ' ' && buffer[i] <= '~')
+				ascii_str[i]=(char)buffer[i];
+			else
+				ascii_str[i]='.';
+		}
+		ascii_str[16] = NULL;
+
+		StringCbPrintfA(bytes_str, sizeof(bytes_str), "%02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X"
+			, buffer[0]
+			, buffer[1]
+			, buffer[2]
+			, buffer[3]
+			, buffer[4]
+			, buffer[5]
+			, buffer[6]
+			, buffer[7]
+			, buffer[8]
+			, buffer[9]
+			, buffer[10]
+			, buffer[11]
+			, buffer[12]
+			, buffer[13]
+			, buffer[14]
+			, buffer[15]);
+
+		QTreeWidgetItem *item = new QTreeWidgetItem;
+		item->setText(0, addr_str);
+		item->setText(1, ascii_str);
+		item->setText(2, bytes_str);
+
+		ui.treeWidget_2->addTopLevelItem(item);
+
+		ptr = AddPtr(ptr, 16);
+	}
+
+	jhengine::storage::SetMemoryDumpViewerCurrentAddress(end);
 }

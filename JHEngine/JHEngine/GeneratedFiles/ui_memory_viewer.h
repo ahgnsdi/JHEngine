@@ -18,7 +18,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QWidget>
 
@@ -31,7 +30,7 @@ public:
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
     QTreeWidget *treeWidget;
-    QTextEdit *textEdit;
+    QTreeWidget *treeWidget_2;
     QStatusBar *statusbar;
     QMenuBar *menuBar;
 
@@ -55,9 +54,9 @@ public:
 
         horizontalLayout->addWidget(treeWidget);
 
-        textEdit = new QTextEdit(centralwidget);
-        textEdit->setObjectName(QStringLiteral("textEdit"));
-        textEdit->setGeometry(QRect(60, 390, 241, 21));
+        treeWidget_2 = new QTreeWidget(centralwidget);
+        treeWidget_2->setObjectName(QStringLiteral("treeWidget_2"));
+        treeWidget_2->setGeometry(QRect(0, 350, 931, 371));
         MemoryViewer->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MemoryViewer);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -79,11 +78,10 @@ public:
         ___qtreewidgetitem->setText(2, QApplication::translate("MemoryViewer", "Opcode", Q_NULLPTR));
         ___qtreewidgetitem->setText(1, QApplication::translate("MemoryViewer", "Bytes", Q_NULLPTR));
         ___qtreewidgetitem->setText(0, QApplication::translate("MemoryViewer", "Address", Q_NULLPTR));
-        textEdit->setHtml(QApplication::translate("MemoryViewer", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Gulim'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">123</p></body></html>", Q_NULLPTR));
+        QTreeWidgetItem *___qtreewidgetitem1 = treeWidget_2->headerItem();
+        ___qtreewidgetitem1->setText(2, QApplication::translate("MemoryViewer", "Bytes", Q_NULLPTR));
+        ___qtreewidgetitem1->setText(1, QApplication::translate("MemoryViewer", "Ascii", Q_NULLPTR));
+        ___qtreewidgetitem1->setText(0, QApplication::translate("MemoryViewer", "Address", Q_NULLPTR));
     } // retranslateUi
 
 };

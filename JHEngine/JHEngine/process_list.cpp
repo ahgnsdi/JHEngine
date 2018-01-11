@@ -82,10 +82,12 @@ JHEngineProcessList::SelectProcess()
 	if (img_base)
 	{
 		jhengine::storage::SetMemoryViewerCurrentAddress(img_base);
+		jhengine::storage::SetMemoryDumpViewerCurrentAddress(img_base);
 	}
 	else
 	{
 		jhengine::storage::SetMemoryViewerCurrentAddress(nullptr);
+		jhengine::storage::SetMemoryDumpViewerCurrentAddress(nullptr);
 	}
 
 	this->close();
@@ -112,10 +114,12 @@ JHEngineProcessList::SelectProcess(QListWidgetItem *item)
 	if (img_base)
 	{
 		jhengine::storage::SetMemoryViewerCurrentAddress(img_base);
+		jhengine::storage::SetMemoryDumpViewerCurrentAddress(img_base);
 	}
 	else
 	{
 		jhengine::storage::SetMemoryViewerCurrentAddress(nullptr);
+		jhengine::storage::SetMemoryDumpViewerCurrentAddress(nullptr);
 	}
 
 	this->close();

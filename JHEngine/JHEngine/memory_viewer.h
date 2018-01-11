@@ -27,12 +27,14 @@ public slots:
 
 private:
 	void UpdateDisassembleView(void *ptr, bool scroll_top_chk, ulong size);
+	void UpdateMemoryDumpView(void *ptr, bool scroll_top_chk, ulong size);
 	bool IsReadableMemory(void *ptr);
 
 	void DisassemblyViewUp(bool page);
 	void DisassemblyViewDown(bool page);
 
 	std::string GetDefaultTextColor(std::string content);
+	std::string SetHighlightingSyntax(std::string content);
 
 	void ScrollEventThreadProc();
 	

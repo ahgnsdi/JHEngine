@@ -60,7 +60,7 @@ bool jhengine::disassembler::Disasm(HANDLE process_handle, uint64_t addr, std::s
 
 		bytes_str = tmp; 
 
-		StringCbPrintfA(tmp, sizeof(tmp), "<b>%s</b>\t%s", g_inst->mnemonic, g_inst->op_str);
+		StringCbPrintfA(tmp, sizeof(tmp), "%s\t%s", g_inst->mnemonic, g_inst->op_str);
 		opcode_str = tmp;
 
 		res_size = g_inst->size;
