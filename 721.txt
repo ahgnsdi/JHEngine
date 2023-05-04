@@ -1,0 +1,127 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.9;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+import "@openzeppelin/contracts/security/Pausable.sol";
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+
+contract WP721 is ERC721, Pausable, Ownable, ERC721Burnable {
+
+    constructor() ERC721("WepleNft", "WPL") {}
+
+    address[] private _mkpConArray;
+
+    function pause() public onlyOwner {
+
+        _pause();
+
+    }
+
+    function unpause() public onlyOwner {
+
+        _unpause();
+
+    }
+
+    function safeMint(address to, uint256 tokenId) public onlyOwner {
+
+        _safeMint(to, tokenId);
+
+    }
+
+    function addProxiesContractAddress(address mkpCon) public onlyOwner returns(bool){
+
+        for(uint i = 0; i < _mkpConArray.length; i++) {
+
+            if(_mkpConArray[i] == mkpCon) {
+
+                return false;
+
+            }
+
+        }
+
+        _mkpConArray.push(mkpCon);
+
+        return true;
+
+    }
+
+    function deleteProxiesContractAddress(address mkpCon) public onlyOwner returns(bool) {
+
+         for(uint i = 0; i < _mkpConArray.length; i++) {
+
+            if(_mkpConArray[i] == mkpCon) {
+
+                delete _mkpConArray[i];
+
+                return true;
+
+            }
+
+         }
+
+         return false;        
+
+    }
+
+    function getProxiesContractLength() public view returns(uint) {
+
+        return _mkpConArray.length;
+
+    }
+
+    function getProxiesContractAddress(uint index) public view returns(address) {
+
+        return _mkpConArray[index];
+
+    }
+
+    function isApprovedForAll(address owner, address operator)
+
+        override
+
+        public
+
+        view
+
+        returns (bool)
+
+    {
+
+        // Whitelist proxy contract for easy trading.
+
+        for(uint i = 0; i < _mkpConArray.length; i++) {
+
+            if(_mkpConArray[i] == operator) {
+
+                return true;
+
+            }
+
+        }
+
+        return super.isApprovedForAll(owner, operator);
+
+    }
+
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
+
+        internal
+
+        whenNotPaused
+
+        override
+
+    {
+
+        super._beforeTokenTransfer(from, to, tokenId, batchSize);
+
+    }
+
+}
